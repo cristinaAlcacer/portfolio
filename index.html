@@ -123,6 +123,7 @@ nav ul a:hover{color:var(--text)}
 .zoom-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(212,225,87,.5);background:rgba(11,15,18,.72);color:var(--signal);cursor:pointer;opacity:.85;transition:opacity .2s}
 .zoom-btn:hover,.zoom-btn:focus-visible{opacity:1}
 .lightbox{position:fixed;inset:0;z-index:60;background:rgba(5,7,9,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox[hidden]{display:none}
 .lb-stage{display:flex;align-items:center;justify-content:center;max-width:100%;min-height:0;flex:1 1 auto}
 .lb-stage img,.lb-stage video{max-width:min(100%,1100px);max-height:calc(100vh - 160px);width:auto;height:auto;display:block;border:1px solid var(--line);background:#000}
 .lb-cap{max-width:70ch;text-align:center;font-size:13px;color:var(--muted);margin:0}
