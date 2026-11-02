@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cristina Alcacer</title>
+<meta name="description" content="Cristina Alcacer, neuroscientist working on Parkinson's disease, striatal circuits and AI for movement analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap">
+<style>
+/* Layout: one dark "microscope room" page. A narrow reading column, with images allowed to break wider.
+   The hero is a round imaging field (the 1 mm lens), and the journey is a sequence of four cities. */
+:root{
+  --ink:#0b0f12;          /* page: the dark of an imaging field */
+  --ink-2:#12181c;        /* raised surfaces */
+  --line:#24303a;         /* hairlines */
+  --text:#e7ece8;         /* body text, slightly green-white */
+  --muted:#93a19b;        /* secondary text */
+  --signal:#d4e157;       /* GCaMP-lime: the one accent */
+  --signal-dim:#8fa02e;
+  --magenta:#e15fb6;      /* used only in captions of images that carry it */
+  /* one family throughout; hierarchy comes from size and weight */
+  --sans:"Geist", "Helvetica Neue", Arial, sans-serif;
+  --serif:var(--sans);
+  --mono:var(--sans);
+  --col:68ch;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+a{color:inherit;text-decoration-color:var(--signal-dim);text-underline-offset:3px}
+a:hover{color:var(--signal)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+img,video{max-width:100%;height:auto;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(34px,5vw,52px);line-height:1.05}
+h3{font-size:28px;line-height:1.15}
+p{margin:0}
+.prose{max-width:var(--col);display:grid;gap:1em;color:var(--text)}
+.prose .lead{font-size:20px;line-height:1.5}
+section{padding-block:clamp(72px,10vw,128px);border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;margin-bottom:44px}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+nav .name{font-family:var(--serif);font-size:22px;text-decoration:none}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+nav ul a{font-size:14px;text-decoration:none;color:var(--muted)}
+nav ul a:hover{color:var(--text)}
+@media (max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(48px,8vw,96px) clamp(64px,8vw,104px);border-top:0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,80px);align-items:center}
+.hero h1{font-size:clamp(48px,7.5vw,90px);line-height:.95}
+.hero h1 em{font-style:italic;color:var(--signal)}
+.hero .statement{font-size:clamp(19px,2vw,23px);line-height:1.45;max-width:30ch;margin-top:28px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:32px}
+.lens{position:relative;justify-self:center;width:min(440px,100%)}
+.lens .field{aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 10px var(--ink-2),0 0 0 11px var(--line),0 0 90px -20px rgba(212,225,87,.35);background:#000}
+.lens video,.lens .field img{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
+.lens figcaption{margin-top:28px;text-align:center;line-height:1.6}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr}.lens{width:min(340px,86%)}}
+
+/* now */
+.now-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(32px,5vw,72px);align-items:start}
+.now-grid>*{min-width:0}
+.pillars{display:grid;gap:0;margin-top:36px;border-top:1px solid var(--line)}
+.pillar{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.pillar .mono{padding-top:4px;color:var(--signal)}
+@media (max-width:560px){.pillar{grid-template-columns:1fr;gap:6px}}
+.training{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;padding:28px}
+.training h3{font-size:24px;margin-bottom:6px}
+.course{display:grid;gap:4px;padding:18px 0;border-top:1px solid var(--line)}
+.course:first-of-type{border-top:0}
+.course strong{font-weight:500;font-size:15px;line-height:1.4}
+.course strong a{text-decoration:none}
+.course strong a:hover{text-decoration:underline}
+.status{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.status.live{color:var(--signal)}
+.status.live::before{background:var(--signal);box-shadow:0 0 0 0 rgba(212,225,87,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(212,225,87,0)}100%{box-shadow:0 0 0 0 rgba(212,225,87,0)}}
+@media (max-width:860px){.now-grid{grid-template-columns:1fr}}
+
+/* journey */
+.stop{display:grid;grid-template-columns:200px 1fr;gap:clamp(24px,4vw,56px);padding-block:56px;border-top:1px solid var(--line)}
+.stop:first-of-type{border-top:0;padding-top:8px}
+.stop>*{min-width:0}
+.stop .where{display:grid;gap:6px;align-content:start;position:sticky;top:80px;align-self:start}
+.stop .years{font-family:var(--mono);font-size:13px;color:var(--signal)}
+.stop .city{font-family:var(--serif);font-size:44px;line-height:1}
+.stop .inst{font-size:14px;color:var(--muted);line-height:1.45}
+.stop .body{display:grid;gap:22px}
+.stop .finding{border-left:2px solid var(--signal);padding:2px 0 2px 18px;font-family:var(--serif);font-size:23px;line-height:1.35;max-width:46ch}
+.stop .led{font-size:15px;color:var(--muted);max-width:var(--col)}
+.stop .led b{color:var(--text);font-weight:500}
+.stop .inst-sep{border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.stop .inst a{text-decoration:none;border-bottom:1px solid var(--signal-dim)}
+.keypaper{display:grid;gap:4px;max-width:var(--col);padding:14px 18px;border:1px solid var(--line);border-radius:4px;text-decoration:none;color:var(--text);transition:border-color .2s}
+.keypaper:hover{border-color:var(--signal-dim);color:var(--text)}
+.keypaper:hover .kp-title{color:var(--signal)}
+.kp-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.kp-title{font-size:15.5px;font-weight:500;line-height:1.4}
+.kp-meta{font-size:13px;color:var(--muted)}
+.gallery{display:grid;gap:14px;grid-template-columns:repeat(var(--n,2),1fr);margin-top:6px}
+.gallery figure{margin:0;display:grid;gap:8px;min-width:0}
+.gallery img,.gallery video{width:100%;border-radius:3px;border:1px solid var(--line);background:#000}
+.gallery .tall img,.gallery .tall video{aspect-ratio:3/4;object-fit:cover}
+.gallery .wide{grid-column:1/-1}
+.gallery .solo{max-width:520px}
+.gallery .sq img{aspect-ratio:1;object-fit:cover}
+.zoom-fig{position:relative}
+.zoom-fig img,.zoom-fig video{cursor:zoom-in}
+.zoom-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(212,225,87,.5);background:rgba(11,15,18,.72);color:var(--signal);cursor:pointer;opacity:.85;transition:opacity .2s}
+.zoom-btn:hover,.zoom-btn:focus-visible{opacity:1}
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(5,7,9,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(56px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb-stage{display:flex;align-items:center;justify-content:center;max-width:100%;min-height:0;flex:1 1 auto}
+.lb-stage img,.lb-stage video{max-width:min(100%,1100px);max-height:calc(100vh - 160px);width:auto;height:auto;display:block;border:1px solid var(--line);background:#000}
+.lb-cap{max-width:70ch;text-align:center;font-size:13px;color:var(--muted);margin:0}
+.lb-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));font:500 13px var(--sans);color:var(--text);background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.lb-close:hover{border-color:var(--signal);color:var(--signal)}
+.gallery.eq43 img{aspect-ratio:4/3;object-fit:cover}
+.gallery.rot-pair{grid-template-columns:.566fr .75fr;align-items:start;max-width:560px}
+.gallery.rot-pair video{aspect-ratio:480/848;object-fit:cover;width:100%}
+.gallery.rot-pair img{aspect-ratio:3/4!important}
+@media (max-width:760px){.gallery.rot-pair{grid-template-columns:.566fr .75fr!important}}
+.gallery.thumbs{max-width:var(--col);grid-template-columns:.806fr 1.202fr;align-items:start}
+@media (max-width:760px){.gallery.thumbs{grid-template-columns:.806fr 1.202fr!important}}
+.gallery.lund-pair{grid-template-columns:1fr 1fr;align-items:start}
+.gallery.lisbon-pair{grid-template-columns:.551fr 1fr;align-items:start}
+@media (max-width:760px){.gallery.lisbon-pair{grid-template-columns:1fr}}
+.gallery.lund-pair img{aspect-ratio:1800/2167;object-fit:cover;object-position:top}
+@media (max-width:760px){.gallery.lund-pair{grid-template-columns:1fr}}
+.gallery figcaption{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.5}
+.gallery .white img{background:#fff;padding:10px}
+@media (max-width:760px){.stop{grid-template-columns:1fr}.stop .where{position:static}.gallery{--n:1!important}}
+
+/* toolkit */
+.tool-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,48px)}
+.tool-cols>div{min-width:0}
+.tool-cols h3{font-size:22px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);min-height:calc(2.3em + 12px);display:flex;align-items:flex-end}
+@media (max-width:820px){.tool-cols h3{min-height:0}}
+.tool-era{margin:0 0 8px;font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.tool-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.tool-list li{position:relative;padding-left:20px;font-size:16px;line-height:1.45}
+.tool-list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:2px;background:var(--signal)}
+.tool-list .sub{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+@media (max-width:820px){.tool-cols{grid-template-columns:1fr}}
+
+/* publications */
+.pubs{list-style:none;margin:0;padding:0;display:grid}
+.pub{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.pub .yr{font-family:var(--mono);font-size:13px;color:var(--signal);padding-top:4px}
+.pub .t{font-family:var(--serif);font-size:22px;line-height:1.3}
+.pub .t a{text-decoration:none}
+.pub .a{font-size:14px;color:var(--muted);margin-top:6px}
+.pub .a b{color:var(--text);font-weight:500}
+.pub .j{font-style:italic}
+@media (max-width:560px){.pub{grid-template-columns:1fr;gap:4px}}
+.more{margin-top:28px;font-size:15px;color:var(--muted)}
+
+/* funding */
+.grants{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+@media (max-width:900px){.grants{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grants{grid-template-columns:1fr}}
+.grant{background:var(--ink);padding:24px;display:grid;gap:10px;align-content:start}
+.grant .yrs{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.grant .gn{font-family:var(--serif);font-size:23px;line-height:1.15}
+.grant .role{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+.grant p{font-size:14px;color:var(--muted)}
+
+/* reflections */
+.reflect{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,5vw,72px);align-items:start}
+.reflect>*{min-width:0}
+.reflect .art{margin:0;justify-self:center;max-width:420px;width:100%}
+.reflect .art img{width:100%;height:auto}
+.reflect blockquote{margin:0;font-family:var(--serif);font-size:clamp(24px,3vw,32px);line-height:1.3;max-width:28ch}
+.reflect blockquote em{color:var(--signal)}
+@media (max-width:820px){.reflect{grid-template-columns:1fr}}
+
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,72px);align-items:center}
+.contact .wrap>*{min-width:0}
+.contact .portrait{margin:0}
+.contact .portrait img{width:100%;max-width:300px;aspect-ratio:1;object-fit:cover;border-radius:50%;border:1px solid var(--line)}
+@media (max-width:820px){.contact .wrap{grid-template-columns:1fr}.contact .portrait{order:-1}.contact .portrait img{max-width:240px}}
+.contact h2{font-size:clamp(44px,7vw,84px);line-height:1}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:44px}
+.c-item{display:grid;gap:8px}
+.c-item .v{font-size:17px;word-break:break-word;user-select:all}
+.copy{justify-self:start;font:500 12px var(--mono);letter-spacing:.06em;color:var(--signal);background:none;border:1px solid var(--signal-dim);border-radius:999px;padding:5px 12px;cursor:pointer}
+.copy:hover{background:rgba(212,225,87,.08)}
+footer{padding-block:36px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+/* single-family type scale */
+h1,h2,h3{font-weight:500;letter-spacing:-.025em}
+.hero h1{font-weight:300;letter-spacing:-.045em;line-height:.92}
+.hero h1 em{font-style:normal;font-weight:400}
+.hero h1 .first{font-weight:300}
+.hero h1.n1 em{font-weight:650}
+.hero h1.n2 em{font-weight:300;text-transform:uppercase;letter-spacing:-.035em}
+.hero h1.n3 em{font-weight:300;font-style:italic}
+.hero h1.n4 em{font-weight:300}
+.hero .statement strong{font-weight:600}
+.hero .meta{flex-direction:column;gap:10px}
+.cities{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.cities a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--signal-dim);padding-bottom:1px}
+.cities a:hover{color:var(--signal);border-color:var(--signal)}
+.cities span{color:var(--muted)}
+.stop{scroll-margin-top:72px}
+.name-try{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:36px;padding:12px 14px;border:1px dashed var(--line);border-radius:6px}
+.name-try .mono{margin-right:4px}
+.name-try button{font:500 13px var(--sans);color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.name-try button[aria-pressed="true"]{color:var(--ink);background:var(--signal);border-color:var(--signal)}
+h2{font-size:clamp(30px,4.2vw,44px);line-height:1.1}
+h3{font-size:22px}
+nav .name{font-size:17px;font-weight:600;letter-spacing:-.01em;display:inline-flex;align-items:baseline;gap:10px}
+nav .name-tag{font-size:16px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-left:10px;border-left:1px solid var(--line)}
+nav .name:hover .name-tag{color:var(--signal)}
+.mono{font-size:12.5px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.eyebrow{font-weight:500;letter-spacing:.12em}
+.stop .city{font-size:36px;font-weight:500;letter-spacing:-.03em}
+.stop .finding{font-size:20px;font-weight:400;line-height:1.45;letter-spacing:-.01em}
+.stop .years,.pub .yr,.grant .yrs{font-variant-numeric:tabular-nums}
+.pub .t{font-size:18px;font-weight:500;line-height:1.4;letter-spacing:-.01em}
+.grant .gn{font-size:19px;font-weight:500;line-height:1.25;letter-spacing:-.01em}
+.training h3{font-size:20px}
+.reflect blockquote{font-size:clamp(22px,2.6vw,28px);font-weight:400;line-height:1.35;letter-spacing:-.015em}
+.reflect blockquote em{font-style:normal}
+.contact h2{font-weight:300;letter-spacing:-.04em}
+.gallery figcaption{font-size:12.5px;letter-spacing:0}
+</style>
+</head>
+<body>
+
+<nav aria-label="Sections">
+  <div class="wrap">
+    <a class="name" href="#top" aria-label="Cristina Alcacer, portfolio: back to top">C. Alcacer <span class="name-tag">Portfolio</span></a>
+    <ul>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#reflections">Reflections</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="media/Cristina_Alcacer_CV.pdf" target="_blank" rel="noopener">CV&nbsp;↓</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1 id="name" class="n3"><span class="first">Cristina</span><br><em>Alcacer</em></h1>
+      <p class="statement"><strong>Neuroscientist.</strong> Fifteen years inside the parkinsonian striatum. Now teaching machines to read movement, so dopaminergic therapy can follow the patient.</p>
+      <div class="meta">
+        <span class="mono">PhD in Neuroscience · Université Paris VI</span>
+        <span class="mono">Based at Cajal Neuroscience Center · CSIC</span>
+        <nav class="cities" aria-label="Scientific journey"><a href="#paris">Paris</a><span aria-hidden="true">→</span><a href="#lund">Lund</a><span aria-hidden="true">→</span><a href="#lisbon">Lisbon</a><span aria-hidden="true">→</span><a href="#madrid">Madrid</a></nav>
+      </div>
+    </div>
+    <figure class="lens" style="margin:0">
+      <div class="field">
+        <video id="hero-video" src="media/calcium.mp4" poster="media/calcium-poster.jpg" autoplay muted loop playsinline aria-label="Calcium imaging: striatal neurons lighting up as they fire"></video>
+      </div>
+      <figcaption class="mono">Striatal neurons firing in a freely moving<br>dyskinetic mouse · miniscope through a 1&nbsp;mm lens</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- NOW -->
+<section id="now">
+  <div class="wrap now-grid">
+    <div>
+      <div class="sec-head">
+        <p class="eyebrow">Current work · 2025 – now</p>
+        <h2>Reading movement to personalize therapy</h2>
+      </div>
+      <div class="prose">
+        <p class="lead">As a Momentum researcher at the Cajal Neuroscience Center (CSIC), I use AI to analyze behavior in mouse models of Parkinson's disease.</p>
+        <p>I study how different dopaminergic treatments and doses shape motor behavior in parkinsonian mice, using video, motion sensors and machine learning. The goal is a behavioral fingerprint for each therapy, built on movement features that also exist in wearable data from patients.</p>
+        <p>This work is moving toward the clinic. I am developing a neurotechnology concept, with a small interdisciplinary team, that could help make dopaminergic treatment more personalized and more responsive to each patient's day.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><span class="mono">Measure</span><p>Capture motor behavior with video pose tracking and motion sensors, at sub-second resolution instead of coarse manual scores.</p></div>
+        <div class="pillar"><span class="mono">Decode &amp; predict</span><p>Use machine learning to recognize the motor state produced by each dopaminergic treatment and dose, and to anticipate how it changes over time.</p></div>
+        <div class="pillar"><span class="mono">Translate</span><p>Turn these signatures into tools that help adjust treatment to the person.</p></div>
+      </div>
+    </div>
+    <aside class="training" aria-labelledby="training-h">
+      <p class="eyebrow">Neurotech &amp; innovation</p>
+      <h3 id="training-h">Training for transfer</h3>
+      <p class="mono" style="margin-bottom:8px">Part of the Momentum CSIC “Develop your digital talent” programme</p>
+      <div class="course">
+        <span class="status live">In progress · 2026</span>
+        <strong><a href="https://fgcsic.es/convocatoria-evento/tercera-edicion-de-inspiratech/" target="_blank" rel="noopener">InspiraTech ↗</a></strong>
+        <span class="mono">FGCSIC · Fundación Bankinter</span>
+      </div>
+      <div class="course">
+        <span class="status">June 2026</span>
+        <strong><a href="https://www.ucv.es/oferta-academica/congresos-y-jornadas/congresos-y-jornadas-2026/valencia-neurotechnology-summer-school" target="_blank" rel="noopener">Valencia Neurotechnology Summer School ↗</a></strong>
+        <span class="mono">Universidad Católica de Valencia · ethics, clinical applications and marketplace</span>
+      </div>
+      <div class="course">
+        <span class="status">May 2026</span>
+        <strong><a href="https://converge.csic.es/csic-emprende/csic-activa-t/" target="_blank" rel="noopener">Activa-T ↗</a></strong>
+        <span class="mono">CSIC programme for knowledge-based companies</span>
+      </div>
+      <div class="course">
+        <span class="status">June 2025</span>
+        <strong><a href="https://www.uimp.es/agenda-link.html?id_actividad=65XX&amp;anyaca=2025-26" target="_blank" rel="noopener">II Summer School of Neurotechnology “Rodríguez Delgado” ↗</a></strong>
+        <span class="mono">UIMP, Santander · science, medicine, marketplace and ethics</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Scientific journey</p>
+      <h2>Four cities, one question</h2>
+      <p class="prose" style="color:var(--muted)">Why does the treatment that rescues movement in Parkinson's disease end up causing involuntary movements of its own, and what can we do about it?</p>
+    </div>
+
+    <article class="stop" id="paris">
+      <div class="where">
+        <span class="years">2007 – 2011</span>
+        <span class="city">Paris</span>
+        <span class="inst">PhD, Université Pierre et Marie Curie, Paris VI<br><a href="https://www.frcneurodon.org/institut-du-fer-a-moulin-ifm/" target="_blank" rel="noopener">Institut du <span style="white-space:nowrap">Fer-à-Moulin&nbsp;↗</span></a><br>Girault lab</span>
+      </div>
+      <div class="body">
+        <p class="finding">L-DOPA-induced dyskinesia is tied to over-active signaling in D1 striatal neurons.</p>
+        <p class="led">I studied the molecular signaling behind <b>L-DOPA-induced dyskinesia</b>: the role of the Gαolf protein coupled to D1 receptors, and striatal gene expression in dyskinetic mice. I introduced stereotaxic surgery to the lab and <b>established a mouse model of Parkinson's disease and dyskinesia</b>, which the lab kept using after I left.</p>
+        <a class="keypaper" href="https://doi.org/10.1523/jneurosci.0837-12.2012" target="_blank" rel="noopener"><span class="kp-label">Key paper · first author</span><span class="kp-title">Gαolf mutation allows parsing the role of cAMP-dependent and ERK-dependent signaling in L-DOPA-induced dyskinesia ↗</span><span class="kp-meta">Alcacer et al. · J Neurosci, 2012</span></a>
+        <div class="gallery" style="--n:2">
+          <figure class="sq"><img src="media/golf-mor-sb2.jpg" alt="Red immunostaining of the mouse striatum with arrowheads marking labelled regions" loading="lazy" width="864" height="912"><figcaption>Gαolf immunostaining in the striatum (arrowheads) · Alcacer et al., J Neurosci 2012</figcaption></figure>
+          <figure class="sq"><img src="media/perk-santini-sb2.jpg" alt="Confocal image of striatal neurons labelled in green and red" loading="lazy" width="1400" height="1400"><figcaption>L-DOPA activates ERK signaling: pERK (red) in D2 neurons (green) · <a href="https://doi.org/10.1111/j.1471-4159.2008.05831.x" target="_blank" rel="noopener">Santini, Alcacer et al., J Neurochem 2009 ↗</a></figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="stop" id="lund">
+      <div class="where">
+        <span class="years">2012 – 2015</span>
+        <span class="city">Lund</span>
+        <span class="inst">Postdoc, Lund University<br>Basal Ganglia Pathophysiology Unit<br><a href="https://www.multipark.lu.se/basal-ganglia-pathophysiology" target="_blank" rel="noopener"><span style="white-space:nowrap">Cenci lab&nbsp;↗</span></a></span>
+      </div>
+      <div class="body">
+        <p class="finding">Dyskinesia can be turned up or down by targeting the two striatal pathways.</p>
+        <p class="led">I set up <b>chemogenetics</b> (DREADDs) in the lab, at a time when few labs used it. Activating direct-pathway neurons made dyskinesia worse; activating indirect-pathway neurons reduced it. The result suggests that <b>therapies acting on both pathways</b> could treat Parkinson's disease and dyskinesia better than single-pathway approaches. The work was covered by <a href="https://www.lunduniversity.lu.se/article/both-accelerator-and-brake-are-required-normal-movement" target="_blank" rel="noopener">Lund University</a>, <a href="https://bit.ly/2SCvcJK" target="_blank" rel="noopener">ScienceDaily</a> and <a href="https://bit.ly/34ytjVn" target="_blank" rel="noopener">MedicalXpress</a>.</p>
+        <a class="keypaper" href="https://doi.org/10.1172/JCI90132" target="_blank" rel="noopener"><span class="kp-label">Key paper · first &amp; corresponding author</span><span class="kp-title">Chemogenetic stimulation of striatal projection neurons modulates responses to Parkinson's disease therapy ↗</span><span class="kp-meta">Alcacer et al. · J Clin Invest, 2017</span></a>
+        <div class="gallery lund-pair">
+          <figure><img src="media/lund-dreadd-red-sb2.jpg" alt="Brain section showing red hM3Dq DREADD expression across the mouse striatum" loading="lazy" width="1024" height="1024" style="object-position:30% top"><figcaption>hM3Dq DREADD expression in the mouse striatum after viral delivery</figcaption></figure>
+          <figure><img class="zoom" src="media/spn-schematic-dreadd3.jpg" alt="Schematic of direct and indirect pathway striatal neurons and their balance in normal conditions, Parkinson's disease and dyskinesia" loading="lazy" width="1800" height="2167"><figcaption>Balance vs imbalance between direct and indirect pathways using DREADD activation</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="stop" id="lisbon">
+      <div class="where">
+        <span class="years">2016 – 2021</span>
+        <span class="city">Lisbon</span>
+        <span class="inst">Postdoc, Champalimaud Foundation<br><a href="https://fchampalimaud.org/champalimaud-research" target="_blank" rel="noopener"><span style="white-space:nowrap">Champalimaud Research&nbsp;↗</span></a><br>Neurobiology of Action · <a href="https://alleninstitute.org/neurobiology-of-action" target="_blank" rel="noopener"><span style="white-space:nowrap">Costa lab&nbsp;↗</span></a><br><span style="font-size:12.5px">(now at the Allen Institute, Seattle)</span></span>
+      </div>
+      <div class="body">
+        <p class="finding">Each dyskinetic movement has its own hyperactive ensemble of striatal neurons.</p>
+        <p class="led">Funded by a Marie Skłodowska-Curie grant, I brought Parkinson's models into a lab expert in movement control. I learned <b>in vivo calcium imaging</b> in freely moving mice, built a rotating platform with the hardware team, and used <b>head-mounted inertial sensors, video and machine learning</b> to detect dyskinesias automatically, at a resolution manual scoring cannot reach.</p>
+        <a class="keypaper" href="https://doi.org/10.1016/j.celrep.2025.115988" target="_blank" rel="noopener"><span class="kp-label">Key paper · co-first &amp; corresponding author</span><span class="kp-title">Abnormal hyperactivity of specific striatal ensembles encodes distinct dyskinetic behaviors revealed by high-resolution clustering ↗</span><span class="kp-meta">Alcacer, Klaus et al. · Cell Reports, 2025</span></a>
+        <div class="gallery lisbon-pair">
+          <figure><video src="media/dyskinesia-dlc4.mp4" poster="media/dyskinesia-dlc4-poster.jpg" width="840" height="1526" autoplay muted loop playsinline aria-label="A dyskinetic mouse in the arena with its calcium imaging below"></video><figcaption>Dyskinetic mouse after L-DOPA (top; inset: zoom with DeepLabCut pose tracking), aligned with the calcium activity of direct-pathway striatal neurons (bottom) · adapted from Alcacer et al., Cell Rep 2025, Movie S3</figcaption></figure>
+          <figure><img class="zoom" src="media/cellrep-ga-srgb.jpg" alt="Graphical abstract: dyskinesia clusters and the striatal ensembles that encode them" loading="lazy" width="1400" height="1400" style="background:#fff"><figcaption>Graphical abstract, Cell Rep 2025</figcaption></figure>
+        </div>
+        <div class="gallery eq43 rot-pair" style="--n:2">
+          <figure><video src="media/rotating-platform2.mp4" poster="media/rotating-platform2-poster.jpg" width="480" height="848" controls preload="metadata" playsinline data-noautoplay aria-label="Rotating platform carrying the acquisition laptop, turning during an imaging session"></video><figcaption>Rotating platform for imaging during rotational dyskinesia</figcaption></figure>
+          <figure><img class="zoom" src="media/champalimaud-desk-v2.jpg" data-full="media/champalimaud-view2.jpg" alt="View of the Tagus river through an oval opening under a pergola at the Champalimaud Foundation" loading="lazy" width="750" height="1000"><figcaption>The view from my desk, Champalimaud Foundation</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <article class="stop" id="madrid">
+      <div class="where">
+        <span class="years">2022 – now</span>
+        <span class="city">Madrid</span>
+        <span class="inst">University of Alcalá · <a href="https://www.irycis.org/en/research/research-groups/13/visual-neurophisiology" target="_blank" rel="noopener"><span style="white-space:nowrap">IRYCIS&nbsp;↗</span></a><br>María Zambrano fellow</span>
+        <span class="inst inst-sep"><a href="https://cajal.csic.es/en/home/" target="_blank" rel="noopener"><span style="white-space:nowrap">Cajal Neuroscience Center&nbsp;↗</span></a>, CSIC · Momentum<br><a href="https://sites.google.com/view/pablojercogteam/" target="_blank" rel="noopener"><span style="white-space:nowrap">Jercog lab&nbsp;↗</span></a></span>
+      </div>
+      <div class="body">
+        <p class="finding">Turning behavior into a readout of dopaminergic therapy.</p>
+        <p class="led" style="font-size:14px">With a <b>María Zambrano</b> talent-attraction grant I led an interdisciplinary project on how dopamine loss in the retina, a feature of Parkinson's disease, affects retinal circuits and visual function. I brought a parkinsonian model of retinal dopamine depletion into a retinal electrophysiology lab, co-supervised students, and taught Human Physiology to Pharmacy students at the UAH. At the Cajal Institute I set up <b>fiber photometry</b> and <b>in vivo electrophysiology</b> and supervised students as project manager.</p>
+        <p class="led">Since 2025 I lead a <a href="https://momentum.csic.es/en/" target="_blank" rel="noopener"><b>Momentum</b></a> project at the Cajal Neuroscience Center (CSIC), part of the programme “Develop your digital talent”, on <b>AI-based behavioral analysis</b> in mouse models of Parkinson's disease. It builds on the pipeline from my Cell Reports paper, which combined pose estimation, head-mounted motion sensors and unsupervised clustering to classify dyskinetic movements with sub-second precision.</p>
+        <p class="led">I now apply this approach to a broader question: how different dopaminergic drugs, at different doses, shape motor behavior in parkinsonian and intact mice. The goal is an <b>interpretable, data-driven framework</b> that links pharmacology to behavior, built on movement features that also exist in wearable data from patients. The programme includes extensive training in AI (240 ECTS), which I am complementing with training in innovation and technology transfer.</p>
+        <a class="keypaper" href="https://doi.org/10.1016/j.neubiorev.2026.106704" target="_blank" rel="noopener"><span class="kp-label">Key paper · first &amp; corresponding author · review</span><span class="kp-title">AI-based mouse behavior analysis in pathology: a focus on movement disorders ↗</span><span class="kp-meta">Alcacer &amp; Jercog · Neuroscience &amp; Biobehavioral Reviews, 2026</span></a>
+        <p class="led" style="font-size:14px">Read the <a href="https://cajal.csic.es/en/artificial-intelligence-improves-the-analysis-of-motor-behavior-in-models-of-neurological-diseases/" target="_blank" rel="noopener">Cajal Neuroscience Center news story ↗</a> about this review.</p>
+        <div class="gallery thumbs" style="--n:2">
+          <figure class="white"><img class="zoom" src="media/momentum-phase1.jpg" data-full="media/momentum-fig1.jpg" alt="Momentum project design: unilateral 6-OHDA mouse model, Phase I with video, motion sensors and miniscope, and Phase II with dopaminergic drugs recorded in two open-field setups" loading="lazy" width="680" height="844"><figcaption>Momentum project: parkinsonian mouse model and experimental design of Phase I (Cell Rep 2025) and Phase II (dopaminergic drugs and doses)</figcaption></figure>
+          <figure class="white"><img class="zoom" src="media/review-fig1.jpg" alt="Pipeline for AI-based behavioral analysis: data acquisition, pose estimation, behavior decomposition, behavioral quantification and applications" loading="lazy" width="1600" height="1331"><figcaption>From raw data to translation: a pipeline for AI-based behavioral analysis · Alcacer &amp; Jercog, Neurosci Biobehav Rev 2026, Figure 1</figcaption></figure>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Toolkit</p>
+      <h2>From the bench to the model</h2>
+    </div>
+    <div class="tool-cols">
+      <div>
+        <p class="tool-era">Paris · since 2007</p>
+        <h3>Disease models</h3>
+        <ul class="tool-list">
+          <li>Parkinson's disease &amp; L-DOPA-induced dyskinesia mouse models</li>
+          <li>Stereotaxic surgery &amp; viral vector delivery</li>
+          <li>Immunohistochemistry &amp; confocal microscopy</li>
+        </ul>
+      </div>
+      <div>
+        <p class="tool-era">Lund · Lisbon · Madrid</p>
+        <h3>Manipulating &amp; Recording circuits</h3>
+        <ul class="tool-list">
+          <li>Chemogenetics<span class="sub">Gq- and Gs-DREADDs</span></li>
+          <li>Calcium imaging in freely moving mice<span class="sub">miniscope, 1 mm GRIN lens</span></li>
+          <li>Fiber photometry</li>
+          <li>In vivo electrophysiology</li>
+        </ul>
+      </div>
+      <div>
+        <p class="tool-era">Lisbon · Madrid · now</p>
+        <h3>Reading behavior</h3>
+        <ul class="tool-list">
+          <li>Pose estimation<span class="sub">DeepLabCut</span></li>
+          <li>Wearable motion sensors<span class="sub">inertial measurement units (IMUs)</span></li>
+          <li>Machine learning for behavior<span class="sub">unsupervised clustering · supervised classifiers (SVM, XGBoost)</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Selected publications</p>
+      <h2>Papers</h2>
+      <p class="mono">h-index 10 · 1,700+ citations (Google Scholar) · 9 papers in Q1 journals</p>
+    </div>
+    <ol class="pubs">
+      <li class="pub"><span class="yr">2026</span><div><p class="t"><a href="https://doi.org/10.1016/j.neubiorev.2026.106704" target="_blank" rel="noopener">AI-based mouse behavior analysis in pathology: a focus on movement disorders</a></p><p class="a"><b>Alcacer C</b>, Jercog PE · <span class="j">Neuroscience &amp; Biobehavioral Reviews</span> · review · first &amp; corresponding</p></div></li>
+      <li class="pub"><span class="yr">2025</span><div><p class="t"><a href="https://doi.org/10.1016/j.celrep.2025.115988" target="_blank" rel="noopener">Abnormal hyperactivity of specific striatal ensembles encodes distinct dyskinetic behaviors revealed by high-resolution clustering</a></p><p class="a"><b>Alcacer C</b>*, Klaus A*, Mendonça M, Abalde SF, Cenci MA, Costa RM · <span class="j">Cell Reports</span> 44(7):115988 · co-first &amp; corresponding</p></div></li>
+      <li class="pub"><span class="yr">2017</span><div><p class="t"><a href="https://doi.org/10.1172/JCI90132" target="_blank" rel="noopener">Chemogenetic stimulation of striatal projection neurons modulates responses to Parkinson's disease therapy</a></p><p class="a"><b>Alcacer C</b>, Andreoli L, Sebastianutto I, Jakobsson J, Fieblinger T, Cenci MA · <span class="j">J Clin Invest</span> 127(2):720–734 · first &amp; corresponding</p></div></li>
+      <li class="pub"><span class="yr">2016</span><div><p class="t"><a href="https://doi.org/10.1016/j.pneurobio.2015.07.002" target="_blank" rel="noopener">Pathophysiology of L-dopa-induced motor and non-motor complications in Parkinson's disease</a></p><p class="a">Bastide MF, …, <b>Alcacer C</b>, …, Cenci MA, Bézard E · <span class="j">Prog Neurobiol</span> 132:96–168 · co-first author</p></div></li>
+      <li class="pub"><span class="yr">2015</span><div><p class="t"><a href="https://doi.org/10.1523/JNEUROSCI.5231-13.2015" target="_blank" rel="noopener">Gene expression analyses identify Narp contribution in the development of L-DOPA-induced dyskinesia</a></p><p class="a">Charbonnier-Beaupel F, Malerbi M, <b>Alcacer C</b>, … Corvol JC · <span class="j">J Neurosci</span> 35(1):96–111 · co-first author</p></div></li>
+      <li class="pub"><span class="yr">2014</span><div><p class="t"><a href="https://doi.org/10.1038/ncomms6316" target="_blank" rel="noopener">Cell type-specific plasticity of striatal projection neurons in parkinsonism and L-DOPA-induced dyskinesia</a></p><p class="a">Fieblinger T, Graves SM, Sebel LE, <b>Alcacer C</b>, … Surmeier DJ · <span class="j">Nat Commun</span> 5:5316</p></div></li>
+      <li class="pub"><span class="yr">2012</span><div><p class="t"><a href="https://doi.org/10.1523/jneurosci.0837-12.2012" target="_blank" rel="noopener">Gα(olf) mutation allows parsing the role of cAMP-dependent and ERK-dependent signaling in L-DOPA-induced dyskinesia</a></p><p class="a"><b>Alcacer C</b>, Santini E, Valjent E, Gaven F, Girault JA, Hervé D · <span class="j">J Neurosci</span> 32(17):5900–5910</p></div></li>
+    </ol>
+    <p class="more">Full list on <a href="https://orcid.org/0000-0003-2502-0983" target="_blank" rel="noopener">ORCID</a>.</p>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section id="funding">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Funding &amp; recognition</p>
+      <h2>Competitive grants</h2>
+    </div>
+    <div class="grants">
+      <div class="grant"><span class="yrs">2025 – 2028</span><span class="gn">Momentum Programme</span><span class="role">Beneficiary</span><p>CSIC · NextGenerationEU. AI for animal behavior and neural activity analysis and integration.</p></div>
+      <div class="grant"><span class="yrs">2022 – 2024</span><span class="gn">María Zambrano Talent Attraction</span><span class="role">PI</span><p>Talent-attraction grant to return to Spain. Striatal and visual motion processing in parkinsonian models.</p></div>
+      <div class="grant"><span class="yrs">2016 – 2019</span><span class="gn">Marie Skłodowska-Curie International Career Grant</span><span class="role">PI</span><p>Swedish Research Council &amp; European Commission. Striatal cells and the generation of akinesia and dyskinesia.</p></div>
+      <div class="grant"><span class="yrs">2016</span><span class="gn">Marie Skłodowska-Curie Individual Fellowship</span><span class="role">PI · awarded, 96.4%</span><p>Declined in favor of the International Career Grant.</p></div>
+      <div class="grant"><span class="yrs">2019 – 2020</span><span class="gn">ERC Proof of Concept</span><span class="role">Team member</span><p>Behavior phenotyping using inertial sensors (PI: R. Costa).</p></div>
+      <div class="grant"><span class="yrs">2014 – 2018</span><span class="gn">Crafoord &amp; Lars Hierta Foundations</span><span class="role">PI</span><p>Swedish foundation grants on striatal cell types in Parkinson's disease.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTIONS -->
+<section id="reflections">
+  <div class="wrap reflect">
+    <figure class="art">
+      <img src="media/shadow-me-spn3.jpg" alt="Artwork by Cristina Alcacer: her silhouette, drawn as a pale grid, facing a striatal projection neuron with red, orange and yellow dendrites" loading="lazy" width="1100" height="1556">
+    </figure>
+    <div>
+      <p class="eyebrow" style="margin-bottom:20px">Reflections</p>
+      <blockquote>Four countries taught me resilience. Each lab asked me to learn something I <em>didn't know yet</em>.</blockquote>
+      <div class="prose" style="margin-top:28px">
+        <p>In Paris I introduced a surgical model the lab didn't have. In Lund I set up chemogenetics and watched a hypothesis hold up, one of the most rewarding moments of my career. In Lisbon I joined a lab far stronger than me in programming and data analysis. It brought self-doubt at first, then motivation, and I left with new confidence and a deep respect for collaboration.</p>
+        <p>Those experiences point to what comes next: leading interdisciplinary projects where experimental neuroscience and AI meet, and carrying what we learn from movement toward tools that help patients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div>
+    <p class="eyebrow" style="margin-bottom:16px">Contact</p>
+    <h2>Let's talk.</h2>
+    <p class="prose" style="margin-top:20px;color:var(--muted)">Open to collaborations in neuroscience, movement disorders and neurotechnology.</p>
+    <div class="contact-grid">
+      <div class="c-item"><span class="mono">Email</span><span class="v" id="email-1">cristina.alcacer@cajal.csic.es</span><button class="copy" data-target="email-1" type="button">Copy</button></div>
+      <div class="c-item"><span class="mono">Personal email</span><span class="v" id="email-2">cristina.alcacer81@gmail.com</span><button class="copy" data-target="email-2" type="button">Copy</button></div>
+      <div class="c-item"><span class="mono">Elsewhere</span>
+        <span class="v"><a href="https://www.linkedin.com/in/cristina-alcacer-b03046a8/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://orcid.org/0000-0003-2502-0983" target="_blank" rel="noopener">ORCID</a></span>
+      </div>
+      <div class="c-item"><span class="mono">CV</span>
+        <span class="v"><a href="media/Cristina_Alcacer_CV.pdf" target="_blank" rel="noopener">Download PDF&nbsp;↓</a></span>
+      </div>
+    </div>
+    </div>
+    <figure class="portrait"><img src="media/portrait-color-crop.jpg" alt="Portrait of Cristina Alcacer" loading="lazy" width="760" height="760"></figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">© 2026 Cristina Alcacer · Images and video from my own research</span>
+    <span class="mono">Born in Valencia · based in Madrid</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged view" hidden>
+  <button type="button" class="lb-close" id="lb-close" aria-label="Close enlarged view">Close ✕</button>
+  <div class="lb-stage" id="lb-stage"></div>
+  <p class="lb-cap" id="lb-cap"></p>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var el=document.getElementById(btn.dataset.target), text=el.textContent.trim();
+    function selectIt(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected';}
+    try{navigator.clipboard.writeText(text).then(function(){btn.textContent='Copied';},selectIt);}catch(e){selectIt();}
+    setTimeout(function(){btn.textContent='Copy';},2000);
+  });
+});
+document.querySelectorAll('.name-try button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.getElementById('name').className=b.dataset.n;
+    document.querySelectorAll('.name-try button').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+  });
+});
+(function(){
+  var lb=document.getElementById('lightbox'), stage=document.getElementById('lb-stage'), cap=document.getElementById('lb-cap'), closeBtn=document.getElementById('lb-close'), last=null;
+  function open(el){
+    last=document.activeElement; stage.innerHTML='';
+    var big;
+    if(el.tagName==='VIDEO'){
+      big=document.createElement('video');
+      big.src=el.currentSrc||el.src; big.muted=true; big.loop=true; big.playsInline=true; big.controls=true; big.autoplay=true;
+      big.addEventListener('loadedmetadata',function(){try{big.currentTime=el.currentTime||0;}catch(e){} big.play().catch(function(){});});
+    } else {
+      big=document.createElement('img'); big.src=el.dataset.full||el.currentSrc||el.src; big.alt=el.alt||'';
+    }
+    stage.appendChild(big);
+    var fc=el.closest('figure'); var c=fc&&fc.querySelector('figcaption');
+    cap.textContent=c?c.textContent:'';
+    lb.hidden=false; document.body.style.overflow='hidden'; closeBtn.focus();
+  }
+  function close(){ lb.hidden=true; stage.innerHTML=''; document.body.style.overflow=''; if(last&&last.focus) last.focus(); }
+  document.querySelectorAll('.gallery img.zoom, .gallery video').forEach(function(el){
+    var fig=el.closest('figure'); if(!fig) return;
+    fig.classList.add('zoom-fig');
+    var b=document.createElement('button'); b.type='button'; b.className='zoom-btn'; b.setAttribute('aria-label','Enlarge'); b.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+    b.addEventListener('click',function(e){e.stopPropagation(); open(el);});
+    el.parentNode.insertBefore(b, el.nextSibling);
+    el.addEventListener('click',function(){open(el);});
+  });
+  closeBtn.addEventListener('click',close);
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target===stage) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!lb.hidden) close(); });
+})();
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('main video:not([data-noautoplay])'));
+  function go(v){ v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  vids.forEach(function(v){ v.muted=true; v.setAttribute('preload','auto'); if(v.readyState>=2) go(v); else v.addEventListener('canplay',function(){go(v);},{once:true}); });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && e.target.paused) go(e.target); }); },{threshold:0.2});
+    vids.forEach(function(v){ io.observe(v); });
+  }
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) vids.forEach(function(v){ if(v.paused) go(v); }); });
+})();
+</script>
+
+</body>
+</html>
